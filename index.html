@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anneler Günü Özel | Donuk Gelsin</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      min-height: 100vh;
+      background: radial-gradient(circle at top left, #fff 0%, #fff6f8 42%, #ffe2eb 100%);
+      color: #3b0b16;
+      overflow-x: hidden;
+    }
+
+    .hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      color: rgba(224, 24, 79, 0.2);
+      animation: floatHeart linear infinite;
+    }
+
+    @keyframes floatHeart {
+      from { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+      15% { opacity: 1; }
+      to { transform: translateY(-15vh) rotate(360deg); opacity: 0; }
+    }
+
+    .page {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 34px 16px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 1180px;
+      background: rgba(255,255,255,0.92);
+      border-radius: 38px;
+      box-shadow: 0 35px 100px rgba(170, 20, 65, 0.2);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      border: 1px solid rgba(255, 120, 150, 0.32);
+    }
+
+    .content {
+      padding: clamp(28px, 5vw, 58px);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: #ffe8ee;
+      color: #c51645;
+      padding: 11px 18px;
+      border-radius: 999px;
+      font-weight: 900;
+      margin-bottom: 22px;
+      font-size: 14px;
+    }
+
+    h1 {
+      font-size: clamp(34px, 6vw, 68px);
+      line-height: 0.95;
+      color: #8e0e2f;
+      margin-bottom: 20px;
+      letter-spacing: -2px;
+    }
+
+    h1 span { color: #e0184f; }
+
+    .lead {
+      font-size: clamp(16px, 2vw, 20px);
+      line-height: 1.55;
+      color: #5d1a2b;
+      margin-bottom: 22px;
+      max-width: 650px;
+    }
+
+    .discount-box {
+      background: linear-gradient(135deg, #fff0f5, #ffe1eb);
+      border: 2px dashed #e0184f;
+      padding: 22px;
+      border-radius: 26px;
+      margin-bottom: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .discount-box::after {
+      content: "♥";
+      position: absolute;
+      right: 18px;
+      top: 2px;
+      font-size: 90px;
+      color: rgba(224, 24, 79, 0.08);
+    }
+
+    .discount-title {
+      font-size: clamp(21px, 3vw, 27px);
+      font-weight: 900;
+      color: #b80f3b;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .min-basket {
+      position: relative;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      color: #8e0e2f;
+      font-weight: 900;
+      padding: 9px 14px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+      border: 1px solid #ffc0cf;
+      font-size: 14px;
+    }
+
+    .price-line {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+    }
+
+    .old-price {
+      font-size: clamp(27px, 4vw, 34px);
+      font-weight: 900;
+      color: #9b6b76;
+      text-decoration: line-through;
+      text-decoration-thickness: 4px;
+      text-decoration-color: #e0184f;
+    }
+
+    .new-price {
+      font-size: clamp(38px, 6vw, 50px);
+      font-weight: 1000;
+      color: #e0184f;
+    }
+
+    .tag {
+      background: #e0184f;
+      color: white;
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 14px;
+    }
+
+    .offer {
+      background: linear-gradient(135deg, #e0184f, #9d1235);
+      color: white;
+      padding: 23px;
+      border-radius: 26px;
+      margin-bottom: 22px;
+      box-shadow: 0 18px 35px rgba(224, 24, 79, 0.28);
+    }
+
+    .offer strong {
+      font-size: clamp(22px, 3vw, 29px);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .feature {
+      background: #fff4f7;
+      border-radius: 18px;
+      padding: 14px;
+      font-weight: 800;
+      color: #72142a;
+      font-size: 15px;
+    }
+
+    .feature i {
+      color: #e0184f;
+      margin-right: 8px;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+      background: #fff;
+      padding: 22px;
+      border-radius: 24px;
+      border: 1px solid #ffd1dc;
+    }
+
+    .input-group {
+      position: relative;
+    }
+
+    .input-group i {
+      position: absolute;
+      left: 17px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #e0184f;
+      font-size: 17px;
+    }
+
+    input {
+      width: 100%;
+      padding: 16px 18px 16px 48px;
+      border: 1px solid #ffc0cf;
+      border-radius: 16px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .phone-group {
+      display: flex;
+      align-items: center;
+      border: 1px solid #ffc0cf;
+      border-radius: 16px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .phone-prefix {
+      padding: 0 15px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      font-weight: 900;
+      color: #e0184f;
+      background: #fff4f7;
+      border-right: 1px solid #ffc0cf;
+      min-height: 52px;
+    }
+
+    .phone-group input {
+      border: none;
+      border-radius: 0;
+      padding-left: 16px;
+    }
+
+    input:focus {
+      border-color: #e0184f;
+      box-shadow: 0 0 0 4px rgba(224, 24, 79, 0.12);
+    }
+
+    .phone-group:focus-within {
+      border-color: #e0184f;
+      box-shadow: 0 0 0 4px rgba(224, 24, 79, 0.12);
+    }
+
+    button {
+      border: none;
+      border-radius: 18px;
+      padding: 17px 20px;
+      background: linear-gradient(135deg, #e0184f, #b80f3b);
+      color: white;
+      font-size: 18px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px rgba(224, 24, 79, 0.28);
+    }
+
+    .visual {
+      position: relative;
+      background: radial-gradient(circle at center, #fff 0%, #ffe7ef 50%, #ffc5d5 100%);
+      display: grid;
+      place-items: center;
+      padding: clamp(34px, 5vw, 52px);
+      overflow: hidden;
+      perspective: 900px;
+      min-height: 620px;
+    }
+
+    .product-wrap {
+      position: relative;
+      z-index: 3;
+      transform-style: preserve-3d;
+      animation: perspectiveMove 4.5s ease-in-out infinite;
+    }
+
+    @keyframes perspectiveMove {
+      0%,100% { transform: rotateY(-9deg) rotateX(4deg) translateY(0); }
+      50% { transform: rotateY(9deg) rotateX(-3deg) translateY(-12px); }
+    }
+
+    .product-frame {
+      position: relative;
+      padding: 13px;
+      border-radius: 38px;
+      background: linear-gradient(135deg, #ff5f98, #ffd2df, #e0184f);
+      box-shadow: 0 0 0 7px rgba(255, 180, 205, 0.38), 0 0 35px rgba(224, 24, 79, 0.55), 0 35px 80px rgba(120, 10, 40, 0.25);
+      animation: pinkPulse 1.8s ease-in-out infinite;
+      overflow: hidden;
+    }
+
+    @keyframes pinkPulse {
+      0%,100% {
+        box-shadow: 0 0 0 7px rgba(255, 180, 205, 0.35), 0 0 28px rgba(224, 24, 79, 0.42), 0 35px 80px rgba(120, 10, 40, 0.25);
+      }
+      50% {
+        box-shadow: 0 0 0 14px rgba(255, 120, 170, 0.18), 0 0 55px rgba(224, 24, 79, 0.75), 0 45px 95px rgba(120, 10, 40, 0.32);
+      }
+    }
+
+    .product {
+      display: block;
+      width: min(82vw, 420px);
+      border-radius: 28px;
+      background: white;
+    }
+
+    .image-heart {
+      position: absolute;
+      z-index: 5;
+      color: rgba(224, 24, 79, 0.55);
+      text-shadow: 0 4px 12px rgba(224, 24, 79, 0.25);
+      animation: imageHeartPulse 2.2s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .image-heart.h1 { left: 13%; top: 15%; font-size: 28px; animation-delay: .1s; }
+    .image-heart.h2 { right: 14%; top: 18%; font-size: 22px; animation-delay: .4s; }
+    .image-heart.h3 { left: 17%; bottom: 20%; font-size: 24px; animation-delay: .7s; }
+    .image-heart.h4 { right: 18%; bottom: 18%; font-size: 30px; animation-delay: 1s; }
+    .image-heart.h5 { left: 46%; top: 9%; font-size: 20px; animation-delay: 1.3s; }
+
+    @keyframes imageHeartPulse {
+      0%,100% { transform: scale(1) translateY(0) rotate(0deg); opacity: .45; }
+      50% { transform: scale(1.45) translateY(-12px) rotate(12deg); opacity: 1; }
+    }
+
+    .floating-note {
+      position: absolute;
+      z-index: 4;
+      bottom: 42px;
+      left: 34px;
+      right: 34px;
+      background: rgba(255,255,255,0.94);
+      padding: 18px;
+      border-radius: 22px;
+      text-align: center;
+      font-weight: 900;
+      color: #9d1235;
+      box-shadow: 0 15px 40px rgba(150, 20, 60, 0.16);
+      animation: noteBounce 2.4s ease-in-out infinite;
+      line-height: 1.4;
+    }
+
+    @keyframes noteBounce {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @media (max-width: 980px) {
+      .card { grid-template-columns: 1fr; }
+      .visual { min-height: 520px; }
+    }
+
+    @media (max-width: 560px) {
+      .page { padding: 16px 10px; }
+      .card { border-radius: 26px; }
+      .content { padding: 28px 18px; }
+      .features { grid-template-columns: 1fr; }
+      .discount-box, .offer, form { border-radius: 20px; }
+      .visual { min-height: 440px; padding: 28px 18px 100px; }
+      .floating-note { left: 18px; right: 18px; bottom: 24px; font-size: 14px; }
+      .badge { font-size: 12px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="hearts" id="hearts"></div>
+
+  <main class="page">
+    <section class="card">
+
+      <div class="content">
+        <div class="badge">
+          <i class="fa-solid fa-heart"></i>
+          Anneler Günü’ne Özel İşletme Kampanyası
+        </div>
+
+        <h1>
+          Üye Ol,<br>
+          <span>%20 İndirimi Kap!</span>
+        </h1>
+
+        <p class="lead">
+          Donuk Gelsin’den işletmelere özel Anneler Günü fırsatı!
+          Pastalar, cheesecake, mono pastalar, sandviç, pizza, taze makarna,
+          kek & tart ve içecek kategorilerimizle stok tutmanıza gerek kalmadan
+          İstanbul Anadolu Yakası’na soğuk zincir araçlarımızla ertesi gün teslimat yapıyoruz.
+        </p>
+
+        <div class="discount-box">
+          <div class="discount-title">
+            <i class="fa-solid fa-percent"></i>
+            İlk Üyeliğe Özel %20 İndirim
+          </div>
+
+          <div class="min-basket">
+            <i class="fa-solid fa-cart-shopping"></i>
+            Minimum 5.000 TL sepet tutarında geçerlidir
+          </div>
+
+          <div class="price-line">
+            <div class="old-price">6.000 TL</div>
+            <div class="new-price">5.000 TL</div>
+            <div class="tag">Üye Ol, İndirimi Kap</div>
+          </div>
+        </div>
+
+        <div class="offer">
+          <strong><i class="fa-solid fa-gift"></i> 4 Dilim Kalpten Kalbe Pasta Hediye</strong>
+          Minimum 5.000 TL sepet tutarı ve üzeri siparişinizde Anneler Günü’ne özel 4 kalp pastanız bizden.
+        </div>
+
+        <div class="features">
+          <div class="feature"><i class="fa-solid fa-truck-fast"></i> Ertesi Gün Teslimat</div>
+          <div class="feature"><i class="fa-solid fa-snowflake"></i> Soğuk Zincir Araç</div>
+          <div class="feature"><i class="fa-solid fa-box-open"></i> Stok Tutmadan Satış</div>
+          <div class="feature"><i class="fa-solid fa-location-dot"></i> İstanbul Anadolu Yakası</div>
+        </div>
+
+        <form id="leadForm">
+          <div class="input-group">
+            <i class="fa-solid fa-store"></i>
+            <input type="text" name="business" placeholder="İşletme Adı" required>
+          </div>
+
+          <div class="phone-group">
+            <span class="phone-prefix">+90</span>
+            <input
+              type="tel"
+              name="phone"
+              id="phone"
+              placeholder="5XXXXXXXXX"
+              maxlength="10"
+              minlength="10"
+              inputmode="numeric"
+              pattern="5[0-9]{9}"
+              required
+            >
+          </div>
+
+          <button type="submit">
+            <i class="fa-solid fa-phone-volume"></i>
+            Hemen İndirim İçin Beni Arayın
+          </button>
+        </form>
+      </div>
+
+      <div class="visual" id="visualArea">
+        <div class="product-wrap">
+          <div class="product-frame">
+            <img class="product" src="https://i.hizliresim.com/mugdx46.png" alt="Kalpten Kalbe Pasta">
+
+            <i class="fa-solid fa-heart image-heart h1"></i>
+            <i class="fa-solid fa-heart image-heart h2"></i>
+            <i class="fa-solid fa-heart image-heart h3"></i>
+            <i class="fa-solid fa-heart image-heart h4"></i>
+            <i class="fa-solid fa-heart image-heart h5"></i>
+          </div>
+        </div>
+
+        <div class="floating-note">
+          Minimum 5.000 TL sepet tutarı üzeri siparişte 4 dilim Kalpten Kalbe Pasta hediyemiz sana ❤️
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <script>
+    const heartsContainer = document.getElementById("hearts");
+
+    for (let i = 0; i < 44; i++) {
+      const heart = document.createElement("i");
+      heart.className = "fa-solid fa-heart heart";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 24 + 13 + "px";
+      heart.style.animationDuration = Math.random() * 8 + 7 + "s";
+      heart.style.animationDelay = Math.random() * 7 + "s";
+      heartsContainer.appendChild(heart);
+    }
+
+    const phoneInput = document.getElementById("phone");
+
+    phoneInput.addEventListener("input", function () {
+      let value = this.value.replace(/\D/g, "");
+
+      value = value.replace(/^0+/, "");
+
+      if (value.length > 0) {
+        value = "5" + value.slice(1);
+      }
+
+      this.value = value.slice(0, 10);
+    });
+
+    phoneInput.addEventListener("focus", function () {
+      if (this.value.length === 0) {
+        this.value = "5";
+      }
+    });
+
+    document.getElementById("leadForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const business = this.business.value.trim();
+      const phone = phoneInput.value.trim();
+
+      if (!business) {
+        alert("Lütfen işletme adınızı giriniz.");
+        return;
+      }
+
+      if (!/^5[0-9]{9}$/.test(phone)) {
+        alert("Lütfen +90 ile başlayan 10 haneli cep telefonu numarası giriniz.");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("business", business);
+      formData.append("phone", "+90" + phone);
+
+      fetch("https://script.google.com/macros/s/AKfycbxPW1uXmNqMrD8gIBrCdAvTKU319vCLrfJmypottNgQjQTMrjOAv6bOe6hNkJG0yvdM8g/exec", {
+        method: "POST",
+        mode: "no-cors",
+        body: formData
+      });
+
+      alert("Teşekkürler! En kısa sürede sizinle iletişime geçeceğiz.");
+      this.reset();
+    });
+  </script>
+
+</body>
+</html>
